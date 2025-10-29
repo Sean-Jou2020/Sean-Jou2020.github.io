@@ -98,8 +98,8 @@
       Prism.highlightAll();
     }
 
-    // Load Giscus
-    loadGiscus();
+    // Load Giscus with unique identifier for this post
+    loadGiscus(filename);
   } catch (error) {
     console.error("Error loading post:", error);
     document.getElementById("post-content").innerHTML =
@@ -108,7 +108,7 @@
 })();
 
 // Load Giscus comments
-function loadGiscus() {
+function loadGiscus(filename) {
   const giscusContainer = document.getElementById("giscus-comments");
   if (!giscusContainer) return;
 
@@ -119,7 +119,9 @@ function loadGiscus() {
   script.setAttribute("data-repo-id", "R_kgDOQLHMdA"); // 사용자가 업데이트 필요
   script.setAttribute("data-category", "General");
   script.setAttribute("data-category-id", "DIC_kwDOQLHMdM4CxMg2"); // 사용자가 업데이트 필요
-  script.setAttribute("data-mapping", "pathname");
+  // Use "specific" mapping with filename as unique term for each post
+  script.setAttribute("data-mapping", "specific");
+  script.setAttribute("data-term", filename);
   script.setAttribute("data-strict", "0");
   script.setAttribute("data-reactions-enabled", "1");
   script.setAttribute("data-emit-metadata", "1");
